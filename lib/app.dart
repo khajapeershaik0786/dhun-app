@@ -3,17 +3,20 @@ import 'package:provider/provider.dart';
 
 import 'core/routing/app_router.dart';
 import 'core/routing/app_routes.dart';
+import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'data/repositories/auth_repository.dart';
 import 'data/repositories/catalog_repository.dart';
 import 'data/repositories/favourites_repository.dart';
+import 'data/repositories/profile_repository.dart';
+import 'data/repositories/theme_controller.dart';
 import 'data/services/audius_api.dart';
 import 'data/services/itunes_api.dart';
 import 'viewmodels/favourites_viewmodel.dart';
 import 'viewmodels/player_viewmodel.dart';
 
 /// Root widget. Wires app-wide services, repositories and the player, then
-/// installs the dark theme + static route table.
+/// installs the light/dark themes + static route table.
 class DhunApp extends StatelessWidget {
   const DhunApp({super.key});
 
@@ -37,6 +40,14 @@ class DhunApp extends StatelessWidget {
           lazy: false,
           create: (_) => AuthRepository()..load(),
         ),
+        ChangeNotifierProvider<ThemeController>(
+          lazy: false,
+          create: (_) => ThemeController()..load(),
+        ),
+        ChangeNotifierProvider<ProfileRepository>(
+          lazy: false,
+          create: (_) => ProfileRepository()..load(),
+        ),
         ChangeNotifierProvider<FavouritesRepository>(
           create: (_) => FavouritesRepository()..load(),
         ),
@@ -48,12 +59,23 @@ class DhunApp extends StatelessWidget {
               FavouritesViewModel(ctx.read<FavouritesRepository>()),
         ),
       ],
-      child: MaterialApp(
-        title: 'dhun',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.dark,
-        initialRoute: AppRoutes.splash,
-        onGenerateRoute: AppRouter.onGenerateRoute,
+      child: Consumer<ThemeController>(
+        builder: (context, theme, _) {
+          return MaterialApp(
+            title: 'dhun',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: theme.mode,
+            // Keep the dynamic AppColors getters in sync with the resolved theme.
+            builder: (context, child) {
+              AppColors.brightness = Theme.of(context).brightness;
+              return child ?? const SizedBox.shrink();
+            },
+            initialRoute: AppRoutes.splash,
+            onGenerateRoute: AppRouter.onGenerateRoute,
+          );
+        },
       ),
     );
   }

@@ -10,6 +10,8 @@ import '../../viewmodels/search_viewmodel.dart';
 import '../../viewmodels/signup_viewmodel.dart';
 import '../../views/auth/login_view.dart';
 import '../../views/auth/signup_view.dart';
+import '../../views/profile/profile_view.dart';
+import '../../views/settings/settings_view.dart';
 import '../../views/shell/main_shell_view.dart';
 import '../../views/splash/splash_view.dart';
 import 'app_routes.dart';
@@ -62,6 +64,12 @@ class AppRouter {
           ),
           settings,
         );
+
+      case AppRoutes.settings:
+        return _page(const SettingsView(), settings);
+
+      case AppRoutes.profile:
+        return _page(const ProfileView(), settings);
 
       default:
         return _page(const SplashView(), settings);

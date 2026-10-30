@@ -27,8 +27,10 @@ class _MainShellViewState extends State<MainShellView> {
 
   @override
   Widget build(BuildContext context) {
+    // Depend on Theme so the shell (background + nav) rebuilds on theme change.
+    final scaffoldBg = Theme.of(context).scaffoldBackgroundColor;
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: scaffoldBg,
       body: SafeArea(
         bottom: false,
         child: IndexedStack(index: _index, children: _tabs),
@@ -36,7 +38,7 @@ class _MainShellViewState extends State<MainShellView> {
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const MiniPlayer(),
+          MiniPlayer(),
           NavigationBarTheme(
             data: NavigationBarThemeData(
               backgroundColor: AppColors.bgElevated,

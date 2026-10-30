@@ -48,15 +48,15 @@ class _SearchViewState extends State<SearchView> {
             textInputAction: TextInputAction.search,
             onChanged: vm.onChanged,
             onSubmitted: vm.submit,
-            style: const TextStyle(color: AppColors.text),
+            style: TextStyle(color: AppColors.text),
             decoration: InputDecoration(
               hintText: 'Songs, artists, podcasts…',
-              hintStyle: const TextStyle(color: AppColors.textFaint),
-              prefixIcon: const Icon(Icons.search, color: AppColors.textMuted),
+              hintStyle: TextStyle(color: AppColors.textFaint),
+              prefixIcon: Icon(Icons.search, color: AppColors.textMuted),
               suffixIcon: _controller.text.isEmpty
                   ? null
                   : IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.textMuted),
+                      icon: Icon(Icons.close, color: AppColors.textMuted),
                       onPressed: () {
                         _controller.clear();
                         vm.onChanged('');
@@ -141,7 +141,7 @@ class _Suggestions extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
       children: [
-        const Text('Try searching',
+        Text('Try searching',
             style: TextStyle(
                 color: AppColors.textMuted,
                 fontWeight: FontWeight.w700,
@@ -155,7 +155,7 @@ class _Suggestions extends StatelessWidget {
               label: Text(c),
               backgroundColor: AppColors.surface,
               side: BorderSide.none,
-              labelStyle: const TextStyle(color: AppColors.text),
+              labelStyle: TextStyle(color: AppColors.text),
               onPressed: () {
                 controller.text = c;
                 vm.submit(c);
@@ -212,7 +212,7 @@ class _Centered extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(text,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.textMuted)),
+                style: TextStyle(color: AppColors.textMuted)),
           ),
         ],
       ),

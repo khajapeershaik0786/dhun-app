@@ -62,7 +62,7 @@ class _QueueSheet extends StatelessWidget {
                     subtitle: Text(t.subtitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.textMuted, fontSize: 12)),
                     trailing: playing
                         ? const Icon(Icons.graphic_eq, color: AppColors.accent)

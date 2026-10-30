@@ -43,11 +43,11 @@ class _DiscoverViewState extends State<DiscoverView> {
                       .displaySmall
                       ?.copyWith(fontSize: 30)),
               const Spacer(),
-              const Icon(Icons.swipe, color: AppColors.textMuted, size: 22),
+              Icon(Icons.swipe, color: AppColors.textMuted, size: 22),
             ],
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Align(
             alignment: Alignment.centerLeft,
@@ -69,14 +69,14 @@ class _DiscoverViewState extends State<DiscoverView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.wifi_off_rounded,
+              Icon(Icons.wifi_off_rounded,
                   size: 42, color: AppColors.textFaint),
               const SizedBox(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(vm.error ?? 'Something went wrong',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: AppColors.textMuted)),
+                    style: TextStyle(color: AppColors.textMuted)),
               ),
               const SizedBox(height: 16),
               FilledButton(

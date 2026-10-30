@@ -3,71 +3,83 @@ import 'package:flutter/services.dart';
 
 import 'app_colors.dart';
 
-/// Global dark [ThemeData] for dhun, styled after Spotify / JioSaavn.
+/// Builds the light and dark [ThemeData] for dhun from the explicit palettes
+/// in [AppColors]. Screen code uses the dynamic [AppColors] getters.
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get dark {
-    final base = ThemeData.dark(useMaterial3: true);
+  static ThemeData get dark => _build(Brightness.dark);
+  static ThemeData get light => _build(Brightness.light);
 
-    final scheme = const ColorScheme.dark(
+  static ThemeData _build(Brightness b) {
+    final isDark = b == Brightness.dark;
+    final base = ThemeData(brightness: b, useMaterial3: true);
+
+    final bg = isDark ? AppColors.darkBg : AppColors.lightBg;
+    final text = isDark ? AppColors.darkText : AppColors.lightText;
+    final surfaceHigh =
+        isDark ? AppColors.darkSurfaceHigh : AppColors.lightSurfaceHigh;
+    final divider = isDark ? AppColors.darkDivider : AppColors.lightDivider;
+
+    final scheme = ColorScheme.fromSeed(
+      seedColor: AppColors.accent,
+      brightness: b,
       primary: AppColors.accent,
       onPrimary: AppColors.onAccent,
-      secondary: AppColors.grad2,
-      surface: AppColors.bg,
-      onSurface: AppColors.text,
+      surface: bg,
+      onSurface: text,
     );
 
     return base.copyWith(
       colorScheme: scheme,
-      scaffoldBackgroundColor: AppColors.bg,
-      canvasColor: AppColors.bg,
-      dividerColor: AppColors.divider,
+      scaffoldBackgroundColor: bg,
+      canvasColor: bg,
+      dividerColor: divider,
       splashColor: AppColors.accent.withValues(alpha: 0.12),
       highlightColor: AppColors.accent.withValues(alpha: 0.08),
-      textTheme: _textTheme(base.textTheme),
-      iconTheme: const IconThemeData(color: AppColors.text),
-      appBarTheme: const AppBarTheme(
+      textTheme: _textTheme(base.textTheme, text),
+      iconTheme: IconThemeData(color: text),
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
-        foregroundColor: AppColors.text,
+        foregroundColor: text,
         elevation: 0,
         centerTitle: false,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        systemOverlayStyle:
+            isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
       ),
-      sliderTheme: const SliderThemeData(
-        activeTrackColor: AppColors.text,
-        inactiveTrackColor: AppColors.surfaceHigh,
-        thumbColor: AppColors.text,
+      sliderTheme: SliderThemeData(
+        activeTrackColor: text,
+        inactiveTrackColor: surfaceHigh,
+        thumbColor: text,
         trackHeight: 3,
-        overlayShape: RoundSliderOverlayShape(overlayRadius: 14),
-        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6),
+        overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
+        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
       ),
     );
   }
 
-  static TextTheme _textTheme(TextTheme base) {
-    const c = AppColors.text;
+  static TextTheme _textTheme(TextTheme base, Color c) {
     return base.apply(bodyColor: c, displayColor: c).copyWith(
-          displayLarge: const TextStyle(
+          displayLarge: TextStyle(
             color: c,
             fontWeight: FontWeight.w800,
             letterSpacing: -1.5,
             height: 0.95,
           ),
-          displaySmall: const TextStyle(
+          displaySmall: TextStyle(
             color: c,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.8,
             height: 1,
           ),
-          headlineSmall: const TextStyle(
+          headlineSmall: TextStyle(
             color: c,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.4,
           ),
-          titleLarge: const TextStyle(color: c, fontWeight: FontWeight.w700),
-          titleMedium: const TextStyle(color: c, fontWeight: FontWeight.w700),
-          labelLarge: const TextStyle(
+          titleLarge: TextStyle(color: c, fontWeight: FontWeight.w700),
+          titleMedium: TextStyle(color: c, fontWeight: FontWeight.w700),
+          labelLarge: TextStyle(
             color: c,
             fontWeight: FontWeight.w800,
             letterSpacing: 0.3,

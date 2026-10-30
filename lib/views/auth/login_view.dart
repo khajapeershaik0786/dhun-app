@@ -61,7 +61,7 @@ class LoginView extends StatelessWidget {
                               style: const TextStyle(color: AppColors.accent)),
                         ),
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
                           padding: EdgeInsets.only(top: 8),
@@ -94,7 +94,7 @@ class LoginView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('New to dhun? ',
+                    Text('New to dhun? ',
                         style: TextStyle(color: AppColors.textMuted)),
                     GestureDetector(
                       onTap: () =>
@@ -138,16 +138,16 @@ class _Field extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 13)),
+            style: TextStyle(color: AppColors.textMuted, fontSize: 13)),
         const SizedBox(height: 6),
         TextField(
           obscureText: obscure,
           onChanged: onChanged,
           keyboardType: keyboardType,
-          style: const TextStyle(color: AppColors.text),
+          style: TextStyle(color: AppColors.text),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: AppColors.textFaint),
+            hintStyle: TextStyle(color: AppColors.textFaint),
             suffixIcon: suffix,
             filled: true,
             fillColor: AppColors.surface,
@@ -170,7 +170,7 @@ class _OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(vertical: 18),
       child: Row(
         children: [
@@ -206,7 +206,7 @@ class _SocialButton extends StatelessWidget {
           Icon(icon, color: AppColors.text, size: 22),
           const SizedBox(width: 10),
           Text(label,
-              style: const TextStyle(
+              style: TextStyle(
                   fontWeight: FontWeight.w600, color: AppColors.text)),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/repositories/auth_repository.dart';
+import '../../data/repositories/profile_repository.dart';
 import '../../viewmodels/signup_viewmodel.dart';
 import '../widgets/primary_button.dart';
 
@@ -59,7 +60,7 @@ class SignupView extends StatelessWidget {
                           obscure: true,
                           onChanged: vm.setPassword),
                       const SizedBox(height: 20),
-                      const Text('Languages you listen to',
+                      Text('Languages you listen to',
                           style: TextStyle(
                               color: AppColors.textMuted, fontSize: 13)),
                       const SizedBox(height: 10),
@@ -99,13 +100,16 @@ class SignupView extends StatelessWidget {
                 enabled: vm.canSubmit,
                 onPressed: () {
                   if (vm.submit()) {
-                    context.read<AuthRepository>().logIn();
+                    context.read<AuthRepository>().logIn(name: vm.name);
+                    context
+                        .read<ProfileRepository>()
+                        .seedIfEmpty(name: vm.name);
                     Navigator.of(context).pushReplacementNamed(AppRoutes.home);
                   }
                 },
               ),
               const SizedBox(height: 10),
-              const Text('By continuing you agree to Terms & Privacy Policy.',
+              Text('By continuing you agree to Terms & Privacy Policy.',
                   style: TextStyle(color: AppColors.textFaint, fontSize: 11)),
             ],
           ),
@@ -135,16 +139,16 @@ class _Field extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: AppColors.textMuted, fontSize: 13)),
+        Text(label, style: TextStyle(color: AppColors.textMuted, fontSize: 13)),
         const SizedBox(height: 6),
         TextField(
           obscureText: obscure,
           onChanged: onChanged,
           keyboardType: keyboardType,
-          style: const TextStyle(color: AppColors.text),
+          style: TextStyle(color: AppColors.text),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: AppColors.textFaint),
+            hintStyle: TextStyle(color: AppColors.textFaint),
             filled: true,
             fillColor: AppColors.surface,
             isDense: true,

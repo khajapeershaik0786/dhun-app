@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 /// Drives the two-step sign-up flow: profile details, then language picks.
 class SignupViewModel extends ChangeNotifier {
   String _name = '';
+  String get name => _name;
   String _mobile = '';
   String _password = '';
 

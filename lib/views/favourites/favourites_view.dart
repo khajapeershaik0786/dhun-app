@@ -66,7 +66,7 @@ class FavouritesView extends StatelessWidget {
             ),
           ),
         if (vm.isEmpty)
-          const SliverFillRemaining(
+          SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
               padding: EdgeInsets.all(32),

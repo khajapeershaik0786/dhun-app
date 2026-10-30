@@ -40,7 +40,7 @@ class TrackTile extends StatelessWidget {
                 child: Text(
                   '$trailingIndex',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: AppColors.textFaint,
                       fontWeight: FontWeight.w700,
                       fontSize: 13),
@@ -69,7 +69,7 @@ class TrackTile extends StatelessWidget {
                   Row(
                     children: [
                       if (track.isPodcast)
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(right: 6),
                           child: Icon(Icons.podcasts,
                               size: 12, color: AppColors.textFaint),
@@ -79,7 +79,7 @@ class TrackTile extends StatelessWidget {
                           track.subtitle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 12.5, color: AppColors.textMuted),
                         ),
                       ),
@@ -92,7 +92,7 @@ class TrackTile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(track.durationLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: AppColors.textFaint, fontSize: 12)),
               ),
             IconButton(

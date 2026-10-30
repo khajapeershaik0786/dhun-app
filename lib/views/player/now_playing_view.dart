@@ -105,7 +105,7 @@ class NowPlayingView extends StatelessWidget {
                           Text(track.subtitle,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.textMuted, fontSize: 15)),
                         ],
                       ),
@@ -127,10 +127,10 @@ class NowPlayingView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(_fmt(player.position),
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.textMuted, fontSize: 12)),
                     Text(_fmt(player.duration),
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.textMuted, fontSize: 12)),
                   ],
                 ),
@@ -162,7 +162,7 @@ class _TopBar extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              const Text('PLAYING FROM',
+              Text('PLAYING FROM',
                   style: TextStyle(
                       fontSize: 10,
                       letterSpacing: 1.5,
@@ -242,14 +242,14 @@ class _BottomBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Icon(Icons.devices, size: 20, color: AppColors.textMuted),
+        Icon(Icons.devices, size: 20, color: AppColors.textMuted),
         Row(
           children: [
-            const Icon(Icons.ios_share, size: 20, color: AppColors.textMuted),
+            Icon(Icons.ios_share, size: 20, color: AppColors.textMuted),
             const SizedBox(width: 20),
             GestureDetector(
               onTap: onQueue,
-              child: const Icon(Icons.queue_music,
+              child: Icon(Icons.queue_music,
                   size: 22, color: AppColors.textMuted),
             ),
           ],

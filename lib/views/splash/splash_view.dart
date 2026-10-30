@@ -38,7 +38,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -66,7 +66,7 @@ class _SplashViewState extends State<SplashView> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const Text('Every tune, every language',
+                Text('Every tune, every language',
                     style: TextStyle(color: AppColors.textMuted, fontSize: 15)),
                 const Spacer(),
                 const Center(

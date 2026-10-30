@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/models/track.dart';
-import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/catalog_repository.dart';
 import '../../viewmodels/home_viewmodel.dart';
 import '../player/now_playing_view.dart';
@@ -21,51 +20,6 @@ class HomeView extends StatelessWidget {
     return 'Good evening';
   }
 
-  void _showAccountSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.bgElevated,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
-      ),
-      builder: (sheetContext) {
-        final name = sheetContext.read<AuthRepository>().displayName;
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 8),
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: AppColors.accent,
-                  child: Icon(Icons.person, color: AppColors.onAccent),
-                ),
-                title: Text(name ?? 'dhun listener',
-                    style: const TextStyle(fontWeight: FontWeight.w700)),
-                subtitle: const Text('Signed in',
-                    style: TextStyle(color: AppColors.textMuted)),
-              ),
-              const Divider(color: AppColors.divider, height: 1),
-              ListTile(
-                leading: const Icon(Icons.logout, color: AppColors.textMuted),
-                title: const Text('Log out'),
-                onTap: () async {
-                  final rootNav = Navigator.of(context);
-                  final sheetNav = Navigator.of(sheetContext);
-                  final auth = sheetContext.read<AuthRepository>();
-                  await auth.logOut();
-                  sheetNav.pop();
-                  rootNav.pushNamedAndRemoveUntil(
-                      AppRoutes.login, (route) => false);
-                },
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +42,8 @@ class HomeView extends StatelessWidget {
                 const Icon(Icons.notifications_none, size: 24),
                 const SizedBox(width: 16),
                 GestureDetector(
-                  onTap: () => _showAccountSheet(context),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(AppRoutes.settings),
                   child: const Icon(Icons.settings_outlined, size: 24),
                 ),
               ],
@@ -181,7 +136,7 @@ class _Card extends StatelessWidget {
             Text(track.subtitle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                     color: AppColors.textMuted, fontSize: 12)),
           ],
         ),
@@ -200,13 +155,13 @@ class _ErrorState extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Icon(Icons.wifi_off_rounded, size: 44, color: AppColors.textFaint),
+        Icon(Icons.wifi_off_rounded, size: 44, color: AppColors.textFaint),
         const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Text(message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.textMuted)),
+              style: TextStyle(color: AppColors.textMuted)),
         ),
         const SizedBox(height: 16),
         FilledButton(
